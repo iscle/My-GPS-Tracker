@@ -70,7 +70,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                 getMyGPSTracker().setCurrentDevice(new Device(imei, password));
 
-                Intent i = new Intent(LoginActivity.this, TrackActivity.class);
+                Intent i = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(i);
                 finishAffinity();
             }

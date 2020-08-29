@@ -1,8 +1,13 @@
-package me.iscle.mygpstracker.activity;
-
-import androidx.annotation.NonNull;
+package me.iscle.mygpstracker.fragment;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -14,25 +19,29 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import me.iscle.mygpstracker.Device;
-import me.iscle.mygpstracker.databinding.ActivityTrackBinding;
+import me.iscle.mygpstracker.databinding.FragmentTrackBinding;
 import me.iscle.mygpstracker.network.GPS365Repository;
 import me.iscle.mygpstracker.network.callback.PositionCallback;
 import me.iscle.mygpstracker.network.response.PositionResponse;
 
-public class TrackActivity extends BaseActivity implements OnMapReadyCallback {
-    private static final String TAG = "TrackActivity";
+public class TrackFragment extends BaseFragment implements OnMapReadyCallback {
+    private static final String TAG = "TrackFragment";
 
     private MapView mapView;
     private Device device;
     private GoogleMap googleMap;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        final ActivityTrackBinding binding = ActivityTrackBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        final FragmentTrackBinding binding = FragmentTrackBinding.inflate(inflater, container, false);
         mapView = binding.map;
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         device = getMyGPSTracker().getCurrentDevice();
 
@@ -68,7 +77,7 @@ public class TrackActivity extends BaseActivity implements OnMapReadyCallback {
 
             @Override
             public void onError(LoginError error) {
-                Toast.makeText(TrackActivity.this, "Something went wrong while updating the location.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Something went wrong while updating the location.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -80,13 +89,13 @@ public class TrackActivity extends BaseActivity implements OnMapReadyCallback {
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         mapView.onStart();
         super.onStart();
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         mapView.onStop();
         super.onStop();
     }
@@ -98,21 +107,20 @@ public class TrackActivity extends BaseActivity implements OnMapReadyCallback {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         mapView.onResume();
         super.onResume();
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         mapView.onPause();
         super.onPause();
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         mapView.onDestroy();
         super.onDestroy();
     }
-
 }
