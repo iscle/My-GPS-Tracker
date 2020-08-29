@@ -4,9 +4,9 @@ import me.iscle.mygpstracker.network.response.PositionResponse;
 
 public interface PositionCallback {
     void onSuccess(PositionResponse response);
-    void onError(LoginError error);
+    void onError(PositionError error);
 
-    enum LoginError {
+    enum PositionError {
         NETWORK_ERROR,
         SERVER_ERROR,
         PASSWORD_ERROR

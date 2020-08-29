@@ -68,7 +68,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     editor.apply();
                 }
 
-                getMyGPSTracker().setCurrentDevice(new Device(imei, password));
+                getMyGPSTracker().setCurrentDevice(new Device(imei, response.name, password));
 
                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(i);
@@ -76,7 +76,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             }
 
             @Override
-            public void onError(LoginError error) {
+            public void onError(PositionError error) {
                 switch (error) {
                     case NETWORK_ERROR:
                         Toast.makeText(LoginActivity.this, "A network error occurred. Please try again.", Toast.LENGTH_LONG).show();

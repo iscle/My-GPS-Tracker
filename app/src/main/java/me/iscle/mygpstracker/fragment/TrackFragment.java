@@ -76,7 +76,7 @@ public class TrackFragment extends BaseFragment implements OnMapReadyCallback {
             }
 
             @Override
-            public void onError(LoginError error) {
+            public void onError(PositionError error) {
                 Toast.makeText(getContext(), "Something went wrong while updating the location.", Toast.LENGTH_SHORT).show();
             }
         });

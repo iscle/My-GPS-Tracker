@@ -54,4 +54,6 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment:$navigation_version"
     implementation "androidx.navigation:navigation-ui:$navigation_version"
     implementation "androidx.navigation:navigation-dynamic-features-fragment:$navigation_version"
+
+    implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
 }

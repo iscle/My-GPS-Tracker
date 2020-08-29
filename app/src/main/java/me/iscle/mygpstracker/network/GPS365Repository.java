@@ -10,7 +10,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Locale;
 
+import me.iscle.mygpstracker.model.RoutePoint;
 import me.iscle.mygpstracker.network.callback.PositionCallback;
+import me.iscle.mygpstracker.network.callback.RouteCallback;
 import me.iscle.mygpstracker.network.deserializer.PositionResponseDeserializer;
 import me.iscle.mygpstracker.network.response.PositionResponse;
 import retrofit2.Call;
@@ -77,19 +79,38 @@ public class GPS365Repository {
                 if (response.isSuccessful()) {
                     PositionResponse positionResponse = response.body();
                     if ("Error".equals(positionResponse.result)) {
-                        callback.onError(PositionCallback.LoginError.PASSWORD_ERROR);
+                        callback.onError(PositionCallback.PositionError.PASSWORD_ERROR);
                     } else {
                         callback.onSuccess(positionResponse);
                     }
                 } else {
-                    callback.onError(PositionCallback.LoginError.SERVER_ERROR);
+                    callback.onError(PositionCallback.PositionError.SERVER_ERROR);
                 }
             }
 
             @Override
             public void onFailure(Call<PositionResponse> call, Throwable t) {
                 t.printStackTrace();
-                callback.onError(PositionCallback.LoginError.NETWORK_ERROR);
+                callback.onError(PositionCallback.PositionError.NETWORK_ERROR);
+            }
+        });
+    }
+
+    public void getRoute(String imei, String startDate, String endDate, final RouteCallback callback) {
+        service.getRoute(imei, startDate, endDate, "2").enqueue(new Callback<RoutePoint[]>() {
+            @Override
+            public void onResponse(Call<RoutePoint[]> call, Response<RoutePoint[]> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.body());
+                } else {
+                    callback.onError(RouteCallback.RouteError.SERVER_ERROR);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RoutePoint[]> call, Throwable t) {
+                t.printStackTrace();
+                callback.onError(RouteCallback.RouteError.NETWORK_ERROR);
             }
         });
     }

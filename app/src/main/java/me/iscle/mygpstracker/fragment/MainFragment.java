@@ -16,12 +16,14 @@ import me.iscle.mygpstracker.databinding.FragmentMainBinding;
 public class MainFragment extends Fragment {
 
     private Button track;
+    private Button route;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final FragmentMainBinding binding = FragmentMainBinding.inflate(inflater, container, false);
         track = binding.track;
+        route = binding.route;
         return binding.getRoot();
     }
 
@@ -30,5 +32,6 @@ public class MainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         track.setOnClickListener(v -> Navigation.findNavController(v).navigate(MainFragmentDirections.actionMainFragmentToTrackFragment()));
+        route.setOnClickListener(v-> Navigation.findNavController(v).navigate(MainFragmentDirections.actionMainFragmentToRouteFragment()));
     }
 }

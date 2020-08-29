@@ -67,7 +67,8 @@
             android:id="@+id/remember_credentials"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Remember credentials" />
+            android:text="Remember credentials"
+            android:buttonTint="@color/colorPrimary" />
 
         <Space
             android:layout_width="match_parent"
